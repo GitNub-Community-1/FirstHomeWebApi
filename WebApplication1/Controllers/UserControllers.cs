@@ -15,24 +15,27 @@ public class UserController:ControllerBase
     }
 
     [HttpPost]
-    public string CreateUser(User user)
+    public async Task<string> CreateUser(User user)
     {
-        var result = usService.AddUser(user);
-        return result;
+        var result = await usService.AddUserAsync(user);
+        string answer = (result > 0) ? "User Added Succefully!" : "Product not added sussefully!"; 
+        return answer;
     }
 
     [HttpPut]
-    public string UpdateUser(int id,string phone_number, string email)
+    public async Task<string> UpdateUser(int id,string phone_number, string email)
     {
-        var result = usService.UpdateUser(id,phone_number,email);
-        return result;
+        var result = await usService.UpdateUserAsync(id,phone_number,email);
+        string answer = (result > 0) ? "User Update Succefully!" : "User not update sussefully!"; 
+        return answer;
     }
 
     [HttpDelete]
-    public string DeleteUser(int id)
+    public async Task<string> DeleteUser(int id)
     {
-        var result = usService.DeleteUser(id);
-        return result;
+        var result = await usService.DeleteUserAsync(id);
+        string answer = (result > 0) ? "User Delete Succefully!" : "User not delete sussefully!"; 
+        return answer;
     }
 
     [HttpGet]

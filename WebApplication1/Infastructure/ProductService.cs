@@ -12,52 +12,34 @@ public class ProductService:IProductService
         _conn = new DbContext();
     }
 
-    public string AddProduct(Product product)
+    public async Task<int> AddProductAsync(Product product)
     {
         using var conn = _conn.GetConnect();
         conn.Open();
         string query = "INSERT INTO products(name, brand,price,year,company_id) VALUES (@name, @brand,@price,@year,@company_id)";
-        int i = conn.Execute(query,new{product.name,product.brand,product.price,product.year,product.company_id});
-        if(i>0)
-        {
-            return ("Product added successfully");
-        }
-        else
-        {
-            return ("Product not added successfully");
-        }
+        var i = await conn.ExecuteAsync(query,new{product.name,product.brand,product.price,product.year,product.company_id});
+        
+        return i;
     }
 
-    public string UpdateProduct(int id,string name,decimal price)
+    public async Task<int> UpdateProductAsync(int id,string name,decimal price)
     {
         using var conn = _conn.GetConnect();
         conn.Open();
         string query = "update products set name = @name,price=@price where id = @id;";
-        int i = conn.Execute(query,new{id,name,price});
-        if(i>0)
-        {
-            return ("Product update successfully");
-        }
-        else
-        {
-            return ("Product not update successfully");
-        }
+        var i = await conn.ExecuteAsync(query,new{id,name,price});
+        
+        return i;
     }
 
-    public string DeleteProduct(int id)
+    public async Task<int> DeleteProductAsync(int id)
     {
         using var conn = _conn.GetConnect();
         conn.Open();
         string query = "delete from products where id = @id";
-        int i = conn.Execute(query,new{id});
-        if(i>0)
-        {
-            return ("Product delete successfully");
-        }
-        else
-        {
-            return ("Product not delete successfully");
-        }
+        var i = await conn.ExecuteAsync(query,new{id});
+       
+        return i;
     }
 
     public List<Product> GetProducts()

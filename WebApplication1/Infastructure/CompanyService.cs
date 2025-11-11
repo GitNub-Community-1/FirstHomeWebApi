@@ -1,7 +1,8 @@
-﻿namespace WebApplication1.Infastructure;
-using Entity;
+﻿using Npgsql;
 using Dapper;
-using Npgsql;
+namespace WebApplication1.Infastructure;
+using Entity;
+using System;
 
 public class CompanyService:ICompanyService
 {
@@ -12,52 +13,34 @@ public class CompanyService:ICompanyService
         _conn = new DbContext();
     }
 
-    public string AddCompany(Company company)
+    public async Task<int> AddCompanyAsync(Company company)
     {
         using var conn = _conn.GetConnect();
         conn.Open();
         string query = "insert into companies(name,description) values(@name,@description)";
-        int i = conn.Execute(query,new{company.name,company.description});
-        if (i > 0)
-        {
-            return "Company added successfully";
-        }
-        else
-        {
-            return "Company not added successfully";
-        }
+        var i = await conn.ExecuteAsync(query,new{company.name,company.description});
+        
+        return i;
     }
 
-    public string UpdateCompany(Company company)
+    public async Task<int> UpdateCompanyAsync(Company company)
     {
         using var conn = _conn.GetConnect();
         conn.Open();
         string query = "update companies set name=@name,description=@description where id=@id";
-        int i = conn.Execute(query,new{company.id,company.name,company.description});
-        if (i > 0)
-        {
-            return "Company update successfully";
-        }
-        else
-        {
-            return "Company not update successfully";
-        }
+        var i = await conn.ExecuteAsync(query,new{company.id,company.name,company.description});
+        
+        return i;
     }
 
-    public string DeleteCompany(string name)
+    public async Task<int> DeleteCompany(string name)
     {
         using var conn = _conn.GetConnect();
         conn.Open();
         string query = "delete from companies where name=@name";
-        int i = conn.Execute(query,new{name});
-        if (i > 0)
-        {
-            return "Company delete successfully";
-        }
-        else
-        {
-            return "Company not delete successfully";
-        }
+        var i = await conn.ExecuteAsync(query,new{name});
+        ;
+        return i;
     }
 
     public List<Company> GetCompanies()

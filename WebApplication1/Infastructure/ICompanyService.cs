@@ -2,8 +2,8 @@
 using Entity;
 public interface ICompanyService
 {
-    public string AddCompany(Company company);   
-    public string UpdateCompany(Company company);
-    public string DeleteCompany(string name);
+    public Task<int> AddCompanyAsync(Company company);   
+    public Task<int> UpdateCompanyAsync(Company company);
+    public Task<int> DeleteCompany(string name);
     public List<Company> GetCompanies();
 }

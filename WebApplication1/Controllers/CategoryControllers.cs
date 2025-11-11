@@ -2,6 +2,7 @@
 using WebApplication1.Entity;
 using WebApplication1.Infastructure;
 namespace WebApplication1.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
 public class CategoryController
@@ -14,24 +15,27 @@ public class CategoryController
     }
 
     [HttpPost]
-    public string CreateCategory(Category category)
+    public async Task<string> CreateCategory(Category category)
     {
-        var result = ctService.AddCategory((category));
-        return result;
+        var result = await ctService.AddCategoryAsync((category));
+        string answer = (result > 0) ? "Category Added Succefully!" : "Category not added sussefully!"; 
+        return answer;
     }
 
     [HttpPut]
-    public string UpdateCategory(Category category)
+    public async Task<string> UpdateCategory(Category category)
     {
-        var result = ctService.UpdateCategory(category);
-        return result;
+        var result = await ctService.UpdateCategoryAsync(category);
+        string answer = (result > 0) ? "Category Update Succefully!" : "Category not update sussefully!"; 
+        return answer;
     }
 
     [HttpDelete]
-    public string DeleteCategory(int id)
+    public async Task<string> DeleteCategory(int id)
     {
-        var result = ctService.DeleteCategory(id);
-        return result;
+        var result = await ctService.DeleteCategoryAsync(id);
+        string answer = (result > 0) ? "Category Delete Succefully!" : "Category not delete sussefully!"; 
+        return answer;
     }
 
     [HttpGet]

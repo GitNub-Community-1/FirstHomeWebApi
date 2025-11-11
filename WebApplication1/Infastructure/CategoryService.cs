@@ -11,52 +11,34 @@ public class CategoryService:ICategoryService
     {
         _conn = new DbContext();
     }
-    public string AddCategory(Category category)
+    public async Task<int> AddCategoryAsync(Category category)
     {
         using var conn = _conn.GetConnect();
         conn.Open();
         string query = "insert into categories(name,description) values (@name,@description)";
-        int i = conn.Execute(query, new { category.name, category.description });
-        if (i > 0)
-        {
-            return "Category added successfully";
-        }
-        else
-        {
-            return "Category not added successfully";
-        }
+        var i = await conn.ExecuteAsync(query, new { category.name, category.description });
+        
+        return i;
     }
 
-    public string UpdateCategory(Category category)
+    public async Task<int> UpdateCategoryAsync(Category category)
     {
         using var conn = _conn.GetConnect();
         conn.Open();
         string query = "update categories set name=@name,description=@description where id=@id";
-        int i = conn.Execute(query, new { category.name, category.description,category.id });
-        if (i > 0)
-        {
-            return "Category update successfully";
-        }
-        else
-        {
-            return "Category not update successfully";
-        }
+        var i = await conn.ExecuteAsync(query, new { category.name, category.description,category.id });
+        
+        return i;
     }
 
-    public string DeleteCategory(int id)
+    public async Task<int> DeleteCategoryAsync(int id)
     {
         using var conn = _conn.GetConnect();
         conn.Open();
         string query = "delete from categories where id = @id";
-        int i = conn.Execute(query, new { id });
-        if (i > 0)
-        {
-            return "Category delete successfully";
-        }
-        else
-        {
-            return "Category not delete successfully";
-        }
+        var i = await conn.ExecuteAsync(query, new { id });
+        
+        return i;
     }
 
     public List<Category> GetCategories()

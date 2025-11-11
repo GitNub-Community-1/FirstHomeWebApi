@@ -2,8 +2,8 @@
 using Entity;
 public interface IProductService
 {
-    public string AddProduct(Product product);
-    public string UpdateProduct(int id,string a,decimal b);
-    public string DeleteProduct(int id);
+    public Task<int> AddProductAsync(Product product);
+    public Task<int> UpdateProductAsync(int id,string a,decimal b);
+    public Task<int> DeleteProductAsync(int id);
     public List<Product> GetProducts();
 }

@@ -4,8 +4,8 @@ namespace WebApplication1.Infastructure;
 
 public interface ICategoryService
 {
-    public string AddCategory(Category category);
-    public string UpdateCategory(Category category);
-    public string DeleteCategory(int id);
+    public Task<int> AddCategoryAsync(Category category);
+    public Task<int> UpdateCategoryAsync(Category category);
+    public Task<int> DeleteCategoryAsync(int id);
     public List<Category> GetCategories();
 }

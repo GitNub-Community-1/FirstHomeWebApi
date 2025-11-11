@@ -35,3 +35,4 @@ C:\Users\LLC LEADER\RiderProjects\WebApplication1\WebApplication1\bin\Debug\net9
 C:\Users\LLC LEADER\RiderProjects\WebApplication1\WebApplication1\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\LLC LEADER\RiderProjects\WebApplication1\WebApplication1\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\LLC LEADER\RiderProjects\WebApplication1\WebApplication1\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\LLC LEADER\RiderProjects\WebApplication1\WebApplication1\obj\Debug\net9.0\WebApplication1.sourcelink.json

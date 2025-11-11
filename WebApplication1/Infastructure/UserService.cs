@@ -3,7 +3,7 @@ using WebApplication1.Entity;
 
 namespace WebApplication1.Infastructure;
 
-public class UserService:IUserService
+public class UserService : IUserService
 {
     private DbContext _conn;
 
@@ -12,52 +12,34 @@ public class UserService:IUserService
         _conn = new DbContext();
     }
 
-    public string AddUser(User user)
+    public async Task<int> AddUserAsync(User user)
     {
         using var conn = _conn.GetConnect();
         conn.Open();
-        string query = "insert into users(fullname,birth_year,phone_number,email) values(@fullname,@birth_year,@phone_number,@email);";
-        int i = conn.Execute(query,new{user.fullname,user.birth_year,user.phone_number,user.email});
-        if (i > 0)
-        {
-            return "User added successfully";
-        }
-        else
-        {
-            return "User not added successfully";
-        }
+        string query =
+            "insert into users(fullname,birth_year,phone_number,email) values(@fullname,@birth_year,@phone_number,@email);";
+        var i = await conn.ExecuteAsync(query, new { user.fullname, user.birth_year, user.phone_number, user.email });
+        
+        return i;
     }
 
-    public string UpdateUser(int id,string phone_number, string email)
+    public async Task<int> UpdateUserAsync(int id, string phone_number, string email)
     {
         using var conn = _conn.GetConnect();
         conn.Open();
         string query = "update users set phone_number = @phone_number,email = @email where id = @id;";
-        int i = conn.Execute(query,new{id,phone_number,email});
-        if (i > 0)
-        {
-            return "User update successfully";
-        }
-        else
-        {
-            return "User not update successfully";
-        }
+        int i = await conn.ExecuteAsync(query, new { id, phone_number, email });
+        return i;
     }
 
-    public string DeleteUser(int id)
+    public async Task<int> DeleteUserAsync(int id)
     {
         using var conn = _conn.GetConnect();
         conn.Open();
         string query = "delete from users where id = @id;";
-        int i = conn.Execute(query,new{id});
-        if (i > 0)
-        {
-            return "User delete successfully";
-        }
-        else
-        {
-            return "User not delete successfully";
-        }
+        int i = await conn.ExecuteAsync(query, new { id });
+        
+        return i;
     }
 
     public List<User> GetUsers()
